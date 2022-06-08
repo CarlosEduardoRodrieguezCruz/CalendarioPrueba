@@ -1,0 +1,13 @@
+h1{
+    text-align: center;
+}
+.cal{
+    justify-items: center;
+    display: flex;
+    justify-content: center;    
+    align-items: center;    
+}
+
+.cal #calendar{
+    width: 800px;
+}

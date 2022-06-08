@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link href="css/index.css" rel='stylesheet'>
+    <link href='css/CalendarJS/main.css' rel='stylesheet'/>  
+   
+  </head>
+  <body>
+    <div class="cal">
+        <h1>Demo Turnos Rotativos</h1>
+        <br>
+    </div>
+    <div class="cal">
+        <div id='calendar'></div>        
+    </div>
+  
+    <script src='js/CalendarJS/main.js'></script>
+    <script src="js/CalendarJS/locales-all.js"></script>
+    <script src="js/moments/moment.js"></script>
+
+    <script>  
+
+            var ListaFechas= [];
+            
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'es',
+                themeSystem: 'standard',
+                editable: true,                
+                weekNumbers: true,        
+                eventDrop: function(fecha){  
+                   console.log(fecha);             
+                },          
+                customButtons: {
+                    myCustomButton: {
+                        text: 'Agregar Horario',
+                        click: function() {
+                            var a = prompt("Titulo: ", '');                         
+                            
+
+                            if(a !='' || a!=null){
+                                Fecha(a);
+                            }
+                        }
+                    }
+                },
+                eventClick: function(fecha){
+
+                    var ok= confirm("¿Desea eliminar?");
+                    if(ok){
+                        fecha.event.remove();
+                    }
+                },
+                headerToolbar: {
+                left: 'prev,next today myCustomButton',
+                center: 'title',
+                right: 'timeGridWeek dayGridMonth' 
+                },                
+                initialDate: new Date(),       
+             
+                events:ListaFechas
+                
+            });
+
+            calendar.render();       
+
+
+            function Fecha(title){  
+                var item={        
+                    startEditable: true,            
+                    title: title,
+                    start: new Date(),
+                    end: null                  
+                };
+
+                calendar.batchRendering(function () {
+                        calendar.addEvent(item);
+                });
+            }
+    </script>
+  </body>
+</html>
